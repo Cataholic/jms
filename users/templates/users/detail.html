@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}用户管理{% endblock %}
+{% block css %}
+    .icon:hover{
+        color: red;
+    }
+{% endblock %}
+{% block content %}
+    <div class="ui right floated small teal labeled button" id="user_add_btn"> 添加用户</div>
+    <h1 class="ui header">用户列表</h1>
+    <table class="ui striped table">
+        <tr>
+            <th>姓名</th>
+            <th>用户名</th>
+            <th>E-mail</th>
+            <th>Date Joined</th>
+            <th>管理员</th>
+            <th>Active</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.date_joined|date:"Y-n-d H:i:s" }}</td>
+            {% if user.is_superuser %}
+                <td class="aligned"><i class="green checkmark icon"></i></td>
+            {% else %}
+                <td class="error"><i class="remove icon"></i></td>
+            {% endif %}
+            {% if user.is_active %}
+                <td class="aligned"><i class="green checkmark icon"></i></td>
+            {% else %}
+                <td class="error"><i class="remove icon"></i></td>
+            {% endif %}
+            <td>
+                <a href="{% url 'users:user_update' user.id %}" ><i class="edit icon"></i></a>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
