@@ -6,7 +6,6 @@
     }
 {% endblock %}
 {% block content %}
-    <div class="ui right floated small teal labeled button" id="user_add_btn"> 添加用户</div>
     <h1 class="ui header">用户列表</h1>
     <table class="ui striped table">
         <tr>
@@ -34,7 +33,7 @@
                 <td class="error"><i class="remove icon"></i></td>
             {% endif %}
             <td>
-                <a href="{% url 'users:user_update' user.id %}" ><i class="edit icon"></i></a>
+                <a href="{% url 'users:update' user.id %}" ><i class="edit icon"></i></a>
             </td>
         </tr>
     </table>

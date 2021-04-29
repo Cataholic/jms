@@ -71,7 +71,7 @@
                 Log-in to your account
             </div>
         </h2>
-        <form class="ui large form" method="post" action="{% url 'users:user_login' %}">
+        <form class="ui large form" method="post" action="{% url 'users:login' %}">
             {% csrf_token %}
             <div class="ui stacked segment">
                 <div class="field">
@@ -100,7 +100,7 @@
         </form>
 
         <div class="ui message">
-            Not work? <a href="mailto:ibuler@qq.com">Contact us</a>
+            Not work? <a href="mailto:Cataholic@qq.com">Contact us</a>
         </div>
     </div>
 </div>

@@ -1,40 +1,34 @@
 {% extends 'base.html' %}
-{% block title %}用户管理{% endblock %}
+{% block title %}资产管理{% endblock %}
 {% block css %}
     .icon:hover{
-        color: red;
+    color: red;
     }
 {% endblock %}
 {% block content %}
-    <div class="ui right floated small teal labeled button" id="user_add_btn"> 添加用户</div>
-    <h1 class="ui header">用户列表</h1>
+    <a class="ui right floated small teal labeled button" id="asset_add_btn" href="{% url 'assets:create' %}"> 添加资产 </a>
+    <h1 class="ui header">资产列表</h1>
     <table class="ui striped table">
         <thead>
         <tr>
-            <th>姓名</th>
-            <th>用户名</th>
-            <th>E-mail</th>
-            <th>Date Joined</th>
-            <th>管理员</th>
+            <th>主机名</th>
+            <th>IP</th>
+            <th>端口</th>
+            <th>管理账号</th>
+            <th>系统</th>
             <th>Active</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        {% for user in users %}
-            <tr {% if not user.is_active %} class="error" {% endif %}>
-                <td>{{ user.name }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.date_joined|date:"Y-m-d H:i:s" }}</td>
-                {% if user.is_superuser %}
-                    <td class="aligned">
-                        <i class="green checkmark icon"></i>
-                    </td>
-                {% else %}
-                    <td></td>
-                {% endif %}
-                {% if not user.is_active %}
+        {% for asset in assets %}
+            <tr {% if not asset.is_active %} class="error" {% endif %}>
+                <td>{{ asset.hostname }}</td>
+                <td>{{ asset.ip }}</td>
+                <td>{{ asset.port }}</td>
+                <td>{{ asset.username }}</td>
+                <td>{{ asset.get_os_display }}</td>
+                {% if not asset.is_active %}
                     <td class="error"><i class="remove icon"></i></td>
                 {% else %}
                     <td class="aligned">
@@ -42,8 +36,8 @@
                     </td>
                 {% endif %}
                 <td>
-                    <i class="remove user icon" href="{% url 'users:del' user.id %}" ></i>
-                    <a href="{% url 'users:update' user.id %}" ><i class="edit icon"></i></a>
+                    <i class="remove asset icon" href="{% url 'assets:del' asset.id %}"></i>
+                    <a href="{% url 'assets:update' asset.id %}"><i class="edit icon"></i></a>
                 </td>
             </tr>
         {% endfor %}
@@ -57,7 +51,7 @@
         </div>
 
         <div class="content">
-            <form class="ui form"  method="post" action="{% url 'users:add' %}">
+            <form class="ui form" method="post" action="{% url 'assets:create' %}">
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="field">
@@ -73,7 +67,7 @@
 
 {% block script %}
     <script>
-        $(document).ready(function (){
+        $(document).ready(function () {
             var csrftoken = Cookies.get('csrftoken');
 
             function csrfSafeMethod(method) {
@@ -89,19 +83,15 @@
                 }
             });
 
-            $('#user_add_btn').click(function () {
-                $('.small.modal').modal('show');
-            });
-
-            $('.remove.user').click(function(){
+            $('.remove.asset').click(function () {
                 var url = $(this).attr('href');
-                if (confirm('确定删除')){
+                if (confirm('确定删除')) {
                     $.post(
-                            url,
-                            function(){
-                                console.log('删除用户成功');
-                                location.reload()
-                            }
+                        url,
+                        function () {
+                            console.log('删除用户成功');
+                            location.reload()
+                        }
                     )
                 }
             });

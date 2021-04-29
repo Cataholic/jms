@@ -2,6 +2,7 @@ from .models import User
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput
 from django import forms
 
+
 class UserAddForm(ModelForm):
     class Meta:
         model = User

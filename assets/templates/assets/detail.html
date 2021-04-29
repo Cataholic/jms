@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}资产管理{% endblock %}
+{% block css %}
+    .icon:hover{
+    color: red;
+    }
+{% endblock %}
+{% block content %}
+<h1 class="ui header">资产详情</h1>
+    <table class="ui striped table">
+        <thead>
+        <tr>
+            <th>主机名</th>
+            <th>IP</th>
+            <th>端口</th>
+            <th>管理账号</th>
+            <th>系统</th>
+            <th>Active</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr {% if not asset.is_active %} class="error" {% endif %}>
+            <td>{{ asset.hostname }}</td>
+            <td>{{ asset.ip }}</td>
+            <td>{{ asset.port }}</td>
+            <td>{{ asset.username }}</td>
+            <td>{{ asset.get_os_display }}</td>
+            {% if not asset.is_active %}
+                <td class="error"><i class="remove icon"></i></td>
+            {% else %}
+                <td class="aligned">
+                    <i class="green checkmark icon"></i>
+                </td>
+            {% endif %}
+            <td>
+                <a href="{% url 'assets:update' asset.id %}"><i class="edit icon"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
