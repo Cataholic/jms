@@ -1,6 +1,5 @@
 from django.urls import reverse_lazy
-from django.shortcuts import render
-from .mixins import LoginRequiredMixin
+from users.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Assets
 from .form import AssetForm
