@@ -1,6 +1,6 @@
 from django.db import models
 
-class Assets(models.Model):
+class Asset(models.Model):
     OS_Choice = [
         ('C', 'CentOS'),
         ('U', 'Ubuntu'),

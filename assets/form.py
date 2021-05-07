@@ -1,11 +1,11 @@
-from .models import Assets
+from .models import Asset
 from django.forms import ModelForm
 from django.forms import TextInput, PasswordInput
 
 
 class AssetForm(ModelForm):
     class Meta:
-        model = Assets
+        model = Asset
         fields = '__all__'
         widgets = {
             'hostname': TextInput(attrs={'placeholder': 'Hostname'}),
