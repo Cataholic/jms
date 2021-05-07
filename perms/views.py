@@ -19,16 +19,21 @@ class PermListView(LoginRequiredMixin, ListView):
         return context
 
 
-class PermDetailView(LoginRequiredMixin, DetailView):
+class PermDetailView(DetailView):
     model = Perm
     template_name = 'perms/detail.html'
 
 
 class PermCreateView(LoginRequiredMixin, CreateView):
     model = Perm
-    template_name = 'perms/create.html'
     success_url = reverse_lazy('perms:list')
     form_class = PermForm
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Method not support", status=405)
+
+    def form_invalid(self, form):
+        return HttpResponse(";".join(form.errors), status=400)
 
 
 class PermDeleteView(SingleObjectMixin, View):
